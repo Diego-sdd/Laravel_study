@@ -46,6 +46,7 @@
                                 <h2>Lista\Edição de Proposta</h2>
                                 @include('components.table_proposta')
                             </div>
+
                         </section>
 
                     </section>

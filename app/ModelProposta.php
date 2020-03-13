@@ -8,8 +8,16 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Notifications\Notifiable;
+
 class ModelProposta extends Model
 {
+    use Notifiable;
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     static function Create(Request $request, $path, $id_cliente, $nm_cliente)
     {
         $id = auth()->user()->id;
@@ -46,7 +54,6 @@ class ModelProposta extends Model
 
         );
         return $res;
-        //dd($path);
     }
     static function select_proposta()
     {
@@ -62,6 +69,46 @@ class ModelProposta extends Model
             ['id' => $id]
         );
 
+        return $res;
+    }
+    static function select_edit($id)
+    {
+        $res = Db::select(
+            'SELECT * FROM db_marca_site.propostas where id = :id',
+            ['id' => $id]
+        );
+        return $res;
+    }
+    static function update_proposta(Request $request)
+    {
+
+
+        $id_proposta = $request->id_proposta;
+        $nm_endereco_obra = $request->nm_endereco_obra;
+        $vl_total = $request->vl_total;
+        $vl_sinal = $request->vl_sinal;
+        $qt_parcelas = $request->qt_parcelas;
+        $vl_parcelas = $request->vl_parcelas;
+        $dt_proposta = $request->dt_proposta;
+        $dt_inicio = $request->dt_inicio;
+        $ds_status = $request->ds_status;
+
+        $data = new DateTime();
+        $data = $data->format('Y-m-d H:i:s');
+        $res = Db::update(
+            'UPDATE propostas SET updated_at = :dt_update, ds_endereco = :ds_endereco,
+            vl_total =:vl_total, vl_sinal = :vl_sinal, qt_parcelas = :qt_parcelas, 
+            vl_parcelas = :vl_parcelas, dt_inicio_pagamento = :dt_inicio, 
+            dt_proposta = :dt_proposta, ds_status = :ds_status
+            WHERE id = :id',
+            [
+                'id' => $id_proposta,
+                'dt_update' => $data, 'ds_endereco' => $nm_endereco_obra, 'vl_total' => $vl_total,
+                'vl_sinal' => $vl_sinal, 'qt_parcelas' => $qt_parcelas, 'vl_parcelas' => $vl_parcelas,
+                'dt_inicio' => $dt_inicio, 'dt_proposta' => $dt_proposta, 'ds_status' => $ds_status,
+
+            ]
+        );
         return $res;
     }
 }

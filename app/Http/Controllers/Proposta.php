@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ModelCliente;
 use App\ModelProposta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
@@ -38,5 +39,32 @@ class Proposta extends Controller
         $Cadastra = ModelProposta::Create($request, $path, $id_cliente, $nm_cliente);
 
         dd($Cadastra);
+    }
+    public function select_edit($id)
+    {
+
+        $edit = ModelProposta::select_edit($id);
+        return view('components.editar_proposta', compact('edit', 'id'));
+    }
+    public function update(Request $request)
+    {
+
+        $nm_endereco = $request->nm_endereco_obra;
+        $vl_total = $request->vl_total;
+        $vl_sinal = $request->vl_sinal;
+        $qt_parcelas = $request->qt_parcelas;
+        $vl_parcelas = $request->vl_parcelas;
+        $dt_proposta = $request->dt_proposta;
+        $dt_inicio = $request->dt_inicio;
+        $ds_status = $request->ds_status;
+
+        if (empty($nm_endereco || $vl_total || $vl_sinal || $qt_parcelas
+            || $vl_parcelas || $dt_proposta || $dt_inicio || $ds_status)) {
+            dd("Preencha todos os Campos");
+        }
+
+
+        $update_proposta = ModelProposta::update_proposta($request);
+        return redirect('home');
     }
 }

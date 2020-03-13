@@ -1,6 +1,6 @@
 @section('table_proposta')
 
-
+<a class="btn btn-warning" href="{{ route('export') }}">&nbsp;&nbsp;Export Data&nbsp;&nbsp;</a>
 <div style="overflow-x:auto;">
     <table class="table table-striped">
 
@@ -17,6 +17,7 @@
                 <th scope="col">Total</th>
                 <th scope="col">Status</th>
                 <th scope="col">Baixar Arq.</th>
+                <th scope="col">Opções</th>
             </tr>
         </thead>
 
@@ -37,7 +38,7 @@
                 <td>R${{ $row->vl_total}}</td>
                 <td>{{ $row->ds_status}}</td>
                 <td> <a href="{{ url(<?php echo $row->ds_arquivo ?>) }}" download>Baixar</a></td>
-
+                <td><a href="{{ route('proposta.edit', $row->id)}}" id="edit_proposta">Editar</a></td>
             </tr>
             @endforeach
 

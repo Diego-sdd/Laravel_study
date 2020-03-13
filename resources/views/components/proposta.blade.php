@@ -1,4 +1,7 @@
 @section('nova_proposta')
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css" rel="stylesheet">
+
 <form action="{{ route('cadastro_proposta') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
@@ -9,6 +12,7 @@
 
             <select class="form-control" id="sel1" name="nm_cliente">
                 <?php
+
                 if ($cliente == null) { ?>
                     <option><?php echo "Não Existe cliente cadastrado"; ?></option>
                     <?php
