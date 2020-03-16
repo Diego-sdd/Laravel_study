@@ -14,6 +14,7 @@
                 <th scope="col">Responsavel</th>
                 <th scope="col">Cnpj</th>
                 <th scope="col">Cpf</th>
+                <th scope="col">Opções</th>
             </tr>
         </thead>
         <?php $cont = 0; ?>
@@ -34,6 +35,7 @@
                 <td>{{ $row->nm_responsavel}}</td>
                 <td>{{ $row->cd_cnpj}}</td>
                 <td>{{ $row->cd_cpf}}</td>
+                <td><a href="{{ route('cliente.edit', $row->id)}}" id="edit_cliente">Editar</a></td>
 
 
             </tr>

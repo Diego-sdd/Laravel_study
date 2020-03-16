@@ -23,7 +23,6 @@ class ModelProposta extends Model
         $id = auth()->user()->id;
         $id_cliente = $id_cliente;
         $nm_cliente = $nm_cliente;
-
         $nm_endereco_obra = $request->nm_endereco_obra;
         $vl_total = $request->vl_total;
         $vl_sinal = $request->vl_sinal;
@@ -32,7 +31,6 @@ class ModelProposta extends Model
         $dt_proposta = $request->dt_proposta;
         $dt_inicio = $request->dt_inicio;
         $ds_status = $request->ds_status;
-
         $path = $path;
         $data = new DateTime();
         $data = $data->format('Y-m-d H:i:s');
@@ -51,13 +49,11 @@ class ModelProposta extends Model
                 'dt_inicio' => $dt_inicio, 'dt_proposta' => $dt_proposta, 'ds_status' => $ds_status,
                 'id_cliente' => $id_cliente, 'ds_arquivo' => $path
             ]
-
         );
         return $res;
     }
     static function select_proposta()
     {
-
         $id = auth()->user()->id;
         $res = Db::select(
             'SELECT C.id, C.nm_cliente, C.ds_endereco, C.vl_total, C.vl_sinal, 
@@ -68,7 +64,6 @@ class ModelProposta extends Model
             JOIN cliente AS P ON C.id_cliente = P.id Where id_user = :id',
             ['id' => $id]
         );
-
         return $res;
     }
     static function select_edit($id)
@@ -81,8 +76,6 @@ class ModelProposta extends Model
     }
     static function update_proposta(Request $request)
     {
-
-
         $id_proposta = $request->id_proposta;
         $nm_endereco_obra = $request->nm_endereco_obra;
         $vl_total = $request->vl_total;
@@ -92,7 +85,6 @@ class ModelProposta extends Model
         $dt_proposta = $request->dt_proposta;
         $dt_inicio = $request->dt_inicio;
         $ds_status = $request->ds_status;
-
         $data = new DateTime();
         $data = $data->format('Y-m-d H:i:s');
         $res = Db::update(
@@ -108,6 +100,14 @@ class ModelProposta extends Model
                 'dt_inicio' => $dt_inicio, 'dt_proposta' => $dt_proposta, 'ds_status' => $ds_status,
 
             ]
+        );
+        return $res;
+    }
+    static function delete_proposta($id)
+    {
+        $res = Db::delete(
+            'DELETE FROM propostas WHERE id = :id',
+            ['id' => $id]
         );
         return $res;
     }
